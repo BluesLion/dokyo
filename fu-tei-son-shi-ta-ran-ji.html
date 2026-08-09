@@ -57,6 +57,20 @@
     padding: .6rem 0 .75rem;
     font-family: "Zen Kaku Gothic New", sans-serif;
   }
+  .home {
+    display: flex; align-items: center; gap: .25rem;
+    font-size: .78rem; padding: .3rem .6rem .3rem .4rem;
+    text-decoration: none; color: var(--sumi-2);
+    border: 1px solid transparent; border-radius: 2px; transition: .15s;
+  }
+  .home svg { width: .95rem; height: .95rem; fill: none;
+               stroke: currentColor; stroke-width: 1.8;
+               stroke-linecap: round; stroke-linejoin: round }
+  .home:hover { color: var(--shu) }
+  .home:focus-visible { outline: 2px solid var(--shu); outline-offset: 2px }
+  .div { width: 1px; align-self: stretch; background: var(--rule);
+          margin: .15rem .3rem }
+
   .bar button {
     font: inherit; font-size: .78rem; padding: .3rem .7rem; cursor: pointer;
     color: var(--sumi-2); background: transparent;
@@ -223,7 +237,7 @@
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
   @media print {
-    .bar, nav.gates { display: none }
+    .topbar { display: none }
     body { background: #fff }
     .gate { break-inside: avoid }
   }
@@ -249,6 +263,12 @@
 
 <div class="topbar">
 <div class="bar">
+  <a class="home" href="index.html" aria-label="回到首頁">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15 5l-7 7 7 7"/>
+    </svg>目次
+  </a>
+  <span class="div"></span>
   <button id="t-romaji" aria-pressed="true">羅馬拼音</button>
   <button id="t-meaning" aria-pressed="true">句義</button>
   <div class="spd" role="group" aria-label="朗讀速度">
