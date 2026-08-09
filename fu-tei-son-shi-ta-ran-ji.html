@@ -117,6 +117,38 @@
     font-size: .52em; font-weight: 500; color: var(--shu);
     letter-spacing: .01em; line-height: 1.5;
   }
+  #envbtn { display: flex; align-items: center; gap: .4rem }
+  .dot { width: .5rem; height: .5rem; border-radius: 50%;
+          background: var(--sumi-2); flex: none }
+  .dot.ok { background: #2E7D5B }
+  .dot.warn { background: #C8322B }
+  .envpanel {
+    padding: 1rem 1.1rem; margin-bottom: .75rem;
+    border: 1px solid var(--rule); border-left: 3px solid var(--shu);
+    background: var(--paper);
+    font-family: "Zen Kaku Gothic New", sans-serif; font-size: .8rem;
+    color: var(--sumi-2); line-height: 1.9;
+  }
+  .envpanel p { margin: 0 }
+  .envpanel .st { color: var(--sumi) }
+  .envpanel .hd { margin-top: .9rem; color: var(--sumi); font-weight: 500 }
+  .envpanel ul { margin: .3rem 0 0; padding-left: 1.1rem }
+  .envpanel li { margin-top: .25rem }
+  .envpanel li b { color: var(--sumi); font-weight: 500 }
+  .envpanel li[data-hit="1"] { list-style: none; margin-left: -1.1rem;
+    padding-left: .8rem; border-left: 2px solid var(--shu) }
+  .envpanel li[data-hit="1"] b { color: var(--shu) }
+  .envpanel .ft { margin-top: .8rem }
+  .envpanel .pick { display: flex; align-items: center; gap: .6rem;
+                     margin-top: .8rem; flex-wrap: wrap }
+  .envpanel .pick label { color: var(--sumi) }
+  .envpanel select {
+    font: inherit; font-size: .8rem; padding: .3rem .5rem;
+    color: var(--sumi); background: var(--paper);
+    border: 1px solid var(--rule); border-radius: 2px; max-width: 100%;
+  }
+  .envpanel select:focus-visible { outline: 2px solid var(--shu); outline-offset: 1px }
+
   #playall[aria-pressed="true"] {
     color: var(--paper); background: var(--shu); border-color: var(--shu);
   }
@@ -225,11 +257,36 @@
     <button data-spd="2" aria-pressed="false">極慢</button>
   </div>
   <button id="playall">全篇朗讀</button>
+  <button id="envbtn" aria-expanded="false" aria-controls="envpanel">
+    <span class="dot" id="envdot"></span><span id="envlabel">語音檢測中</span>
+  </button>
   <button id="stop" hidden>停止朗讀</button>
   <span class="sp"></span>
   <div class="zoom">
     <button id="z-out" aria-label="縮小字級">－</button>
     <button id="z-in" aria-label="放大字級">＋</button>
+  </div>
+</div>
+
+<div class="envpanel" id="envpanel" hidden>
+  <p class="st" id="envmsg"></p>
+  <p class="pick" id="envpick" hidden>
+    <label for="voicesel">朗讀語音</label>
+    <select id="voicesel"></select>
+  </p>
+  <div id="envhelp">
+    <p class="hd" id="envhd">安裝日語語音的方式</p>
+    <ul>
+      <li data-os="win"><b>Windows</b>　設定 → 時間與語言 → 語言與地區 →
+        新增「日本語」，於語言選項中勾選「語音」，裝好後重開瀏覽器</li>
+      <li data-os="mac"><b>macOS</b>　系統設定 → 輔助使用 → 朗讀內容 →
+        系統語音 → 管理語音 → 下載日文（Kyoko／Otoya）</li>
+      <li data-os="ios"><b>iPhone／iPad</b>　設定 → 輔助使用 → 朗讀內容 →
+        語音 → 加入日文</li>
+      <li data-os="android"><b>Android</b>　設定 → 系統 → 語言與輸入 →
+        文字轉語音輸出 → 安裝日文語音資料</li>
+    </ul>
+    <p class="ft" id="envft"></p>
   </div>
 </div>
 
@@ -436,17 +493,117 @@
   ];
   let level = 0, jaVoice = null, current = null, timer = null, alive = null;
 
+  /* ── 環境檢測 ── */
+  const envBtn = document.getElementById('envbtn');
+  const envDot = document.getElementById('envdot');
+  const envLabel = document.getElementById('envlabel');
+  const envPanel = document.getElementById('envpanel');
+  const envMsg = document.getElementById('envmsg');
+  const envHelp = document.getElementById('envhelp');
+  const envFt = document.getElementById('envft');
+
+  const ua = navigator.userAgent;
+  const OS = /iPhone|iPad|iPod/.test(ua) ? 'ios'
+           : /Android/.test(ua) ? 'android'
+           : /Macintosh/.test(ua) ? 'mac'
+           : /Windows/.test(ua) ? 'win' : '';
+  const isFirefox = /Firefox/.test(ua);
+  document.querySelectorAll('#envhelp li').forEach(li => {
+    if (li.dataset.os === OS) li.dataset.hit = '1';
+  });
+
+  envBtn.addEventListener('click', () => {
+    const open = envBtn.getAttribute('aria-expanded') === 'true';
+    envBtn.setAttribute('aria-expanded', String(!open));
+    envPanel.hidden = open;
+  });
+
+  const envHd = document.getElementById('envhd');
+  const envPick = document.getElementById('envpick');
+  const voiceSel = document.getElementById('voicesel');
+
+  const setEnv = (state, label, msg, help) => {
+    envDot.className = 'dot ' + state;
+    envLabel.textContent = label;
+    envMsg.textContent = msg;
+    envHelp.hidden = !help;
+    envHd.textContent = state === 'ok'
+      ? '加裝其他日語語音' : '安裝日語語音的方式';
+    if (state === 'warn') {
+      envBtn.setAttribute('aria-expanded', 'true');
+      envPanel.hidden = false;
+    }
+  };
+
   if (!synth) {
     document.body.classList.add('no-tts');
     document.querySelector('.spd').hidden = true;
+    document.getElementById('playall').hidden = true;
+    setEnv('warn', '語音不可用',
+      '這個瀏覽器不支援語音合成（Web Speech API），朗讀功能已隱藏。'
+      + '建議改用 Chrome、Edge 或 Safari。', false);
   } else {
+    let settled = false;
+
     const pickVoice = () => {
       const vs = synth.getVoices();
       jaVoice = vs.find(v => v.lang === 'ja-JP') ||
-                vs.find(v => v.lang && v.lang.startsWith('ja')) || null;
+                vs.find(v => v.lang && v.lang.replace('_', '-').startsWith('ja')) || null;
+      if (jaVoice) {
+        settled = true;
+        const jas = vs.filter(v =>
+          v.lang && v.lang.replace('_', '-').toLowerCase().startsWith('ja'));
+        if (voiceSel.options.length !== jas.length) {
+          voiceSel.innerHTML = '';
+          jas.forEach(v => {
+            const o = document.createElement('option');
+            o.value = v.voiceURI; o.textContent = v.name;
+            if (v === jaVoice) o.selected = true;
+            voiceSel.appendChild(o);
+          });
+          envPick.hidden = jas.length < 2;
+        }
+        setEnv('ok', '語音可用',
+          '將使用「' + jaVoice.name + '」朗讀。這是通用日語語音，'
+          + '旨在學習假名讀音，念誦的調子、語氣、斷句請依道場阿闍梨為主。', true);
+      } else if (vs.length) {
+        settled = true;
+        envFt.textContent = isFirefox
+          ? 'Firefox 在部分平台不提供語音清單，改用 Chrome、Edge 或 Safari 通常可解決。'
+          : '裝好之後請重新開啟瀏覽器，再回到本頁。';
+        setEnv('warn', '缺日語語音',
+          '系統目前有 ' + vs.length + ' 個語音，但沒有日語。'
+          + '朗讀仍可按下，但會用其他語言的發音規則念，聽起來不會正確。', true);
+      }
+      return !!jaVoice;
     };
+
+    voiceSel.addEventListener('change', () => {
+      const v = synth.getVoices().find(x => x.voiceURI === voiceSel.value);
+      if (v) {
+        jaVoice = v;
+        envMsg.textContent = '將使用「' + v.name + '」朗讀。這是通用日語語音，'
+          + '旨在學習假名讀音，念誦的調子、語氣、斷句請依道場阿闍梨為主。';
+      }
+    });
+
     pickVoice();
     synth.addEventListener('voiceschanged', pickVoice);
+
+    /* getVoices() 在部分瀏覽器需要一段時間才回填，重試數次 */
+    let tries = 0;
+    const probe = setInterval(() => {
+      if (settled || pickVoice() || ++tries > 12) {
+        clearInterval(probe);
+        if (!settled) {
+          envFt.textContent = isFirefox
+            ? 'Firefox 在部分平台不提供語音清單，改用 Chrome、Edge 或 Safari 通常可解決。'
+            : '若已安裝日語語音，重新開啟瀏覽器後再試一次。';
+          setEnv('warn', '找不到語音',
+            '瀏覽器沒有回報任何可用語音。朗讀可能無聲。', true);
+        }
+      }
+    }, 250);
 
     spdBtns.forEach(b => b.addEventListener('click', () => {
       level = +b.dataset.spd;
