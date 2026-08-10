@@ -7,84 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Serif+TC:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper:  #FBFAF7;
-    --sumi:   #1C1A17;
-    --sumi-2: #6B655C;
-    --shu:    #C8322B;
-    --rule:   #DCD7CC;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; min-height: 100vh;
-    background: var(--paper); color: var(--sumi);
-    font-family: "Noto Serif TC", "Noto Serif JP", serif;
-    line-height: 1.7;
-  }
-  .sheet { max-width: 34rem; margin: 0 auto; padding: 5.5rem 1.5rem 6rem; }
-
-  header { text-align: center; margin-bottom: 4rem; }
-  header h1 {
-    margin: 0; font-family: "Noto Serif JP", serif;
-    font-size: 1.9rem; font-weight: 700; letter-spacing: .3em;
-    text-indent: .3em;
-  }
-  header .rule {
-    width: 2.5rem; height: 2px; background: var(--shu);
-    margin: 1.4rem auto 0;
-  }
-
-  ul { list-style: none; margin: 0; padding: 0; }
-  li + li { margin-top: 1px; }
-
-  a.item {
-    display: flex; align-items: baseline; gap: 1rem;
-    padding: 1.35rem 1.2rem;
-    text-decoration: none; color: inherit;
-    border: 1px solid var(--rule);
-    transition: .15s;
-  }
-  a.item:hover, a.item:focus-visible {
-    background: var(--sumi); border-color: var(--sumi); color: var(--paper);
-    outline: none;
-  }
-  a.item:hover .no, a.item:focus-visible .no { color: var(--paper); }
-  a.item:hover .sub, a.item:focus-visible .sub { color: var(--paper); opacity: .7; }
-
-  .no {
-    flex: none; font-family: "Zen Kaku Gothic New", sans-serif;
-    font-size: .82rem; color: var(--shu); transition: .15s;
-  }
-  .body { flex: 1; }
-  .name {
-    font-family: "Noto Serif JP", serif;
-    font-size: 1.25rem; letter-spacing: .06em; line-height: 1.5;
-  }
-  .sub {
-    display: block; margin-top: .3rem;
-    font-family: "Zen Kaku Gothic New", sans-serif;
-    font-size: .78rem; color: var(--sumi-2); letter-spacing: .08em;
-    transition: .15s;
-  }
-  .arrow { flex: none; font-size: .9rem; opacity: .45; }
-
-  .soon {
-    margin-top: 2.5rem; padding: 1.35rem 1.2rem;
-    border: 1px dashed var(--rule);
-    font-size: .84rem; color: var(--sumi-2); text-align: center;
-    letter-spacing: .05em;
-  }
-
-  @media (max-width: 620px) {
-    .sheet { padding: 3.5rem 1rem 4rem; }
-    header h1 { font-size: 1.5rem; }
-    .name { font-size: 1.1rem; }
-  }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
-</style>
+<link rel="stylesheet" href="css/base.css">
 </head>
-<body>
+<body class="page-toc">
 <div class="sheet">
 
   <header>
@@ -92,13 +17,21 @@
     <div class="rule"></div>
   </header>
 
-  <ul>
+  <ul class="toc">
     <li>
       <a class="item" href="fu-tei-son-shi-ta-ran-ji.html">
         <span class="no">一</span>
         <span class="body">
           <span class="name">佛頂尊勝陀羅尼</span>
-          <span class="sub">フッテイソンシタランジ　十門</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+    <li>
+      <a class="item" href="bu-setsu-kan-mi-roku-bo-satsu-jou-shou-to-sotsu-da-ten-kyou.html">
+        <span class="no">二</span>
+        <span class="body">
+          <span class="name">佛說觀彌勒菩薩上生兜率陀天經</span>
         </span>
         <span class="arrow">→</span>
       </a>

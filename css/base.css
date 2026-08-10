@@ -1,0 +1,150 @@
+/* ============================================================
+   dokyo — base.css
+   全站共用：色票、版心、通用元件、目次頁
+
+   新頁面的 <head> 樣板：
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Serif+TC:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="css/base.css">
+   ============================================================ */
+
+:root {
+  /* 色票：取自日本佛典的紙墨與訓點朱 */
+  --paper:  #FBFAF7;   /* 紙 */
+  --sumi:   #1C1A17;   /* 墨 */
+  --sumi-2: #6B655C;   /* 次要文字 */
+  --shu:    #C8322B;   /* 朱 */
+  --rule:   #DCD7CC;   /* 界線 */
+
+  /* 版心：各頁以 body class 覆寫 */
+  --sheet-max:    46rem;
+  --sheet-top:    0rem;
+  --sheet-x:      1.5rem;
+  --sheet-bottom: 6rem;
+}
+
+* { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100% }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--sumi);
+  font-family: "Noto Serif TC", "Noto Serif JP", serif;
+  line-height: 1.7;
+}
+
+/* ── 版心 ── */
+.sheet {
+  max-width: var(--sheet-max);
+  margin: 0 auto;
+  padding: var(--sheet-top) var(--sheet-x) var(--sheet-bottom);
+}
+
+/* ── 通用 focus：鍵盤操作一律朱色框 ── */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--shu);
+  outline-offset: 2px;
+}
+
+/* ── 返回目次 ── */
+.home {
+  display: flex; align-items: center; gap: .25rem;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-size: .78rem; padding: .3rem .6rem .3rem .4rem;
+  text-decoration: none; color: var(--sumi-2);
+  border: 1px solid transparent; border-radius: 2px;
+  transition: .15s;
+}
+.home svg {
+  width: .95rem; height: .95rem; fill: none;
+  stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.home:hover { color: var(--shu) }
+
+/* 直立分隔線 */
+.div {
+  width: 1px; align-self: stretch;
+  background: var(--rule); margin: .15rem .3rem;
+}
+
+/* ============================================================
+   目次頁（<body class="page-toc">）
+   ============================================================ */
+
+.page-toc {
+  --sheet-max: 34rem;
+  --sheet-top: 5.5rem;
+  min-height: 100vh;
+}
+
+.page-toc header { text-align: center; margin-bottom: 4rem }
+.page-toc header h1 {
+  margin: 0;
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.9rem; font-weight: 700;
+  letter-spacing: .3em; text-indent: .3em;
+}
+.page-toc header .rule {
+  width: 2.5rem; height: 2px; background: var(--shu);
+  margin: 1.4rem auto 0;
+}
+
+.toc { list-style: none; margin: 0; padding: 0 }
+.toc li + li { margin-top: 1px }
+
+a.item {
+  display: flex; align-items: baseline; gap: 1rem;
+  padding: 1.35rem 1.2rem;
+  text-decoration: none; color: inherit;
+  border: 1px solid var(--rule);
+  transition: .15s;
+}
+a.item:hover,
+a.item:focus-visible {
+  background: var(--sumi); border-color: var(--sumi); color: var(--paper);
+  outline: none;
+}
+a.item:hover .no, a.item:focus-visible .no { color: var(--paper) }
+
+a.item .no {
+  flex: none;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-size: .82rem; color: var(--shu); transition: .15s;
+}
+a.item .body { flex: 1 }
+a.item .name {
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.25rem; letter-spacing: .06em; line-height: 1.5;
+}
+a.item .arrow { flex: none; font-size: .9rem; opacity: .45 }
+
+.soon {
+  margin-top: 2.5rem; padding: 1.35rem 1.2rem;
+  border: 1px dashed var(--rule);
+  font-size: .84rem; color: var(--sumi-2); text-align: center;
+  letter-spacing: .05em;
+}
+
+/* ============================================================
+   RWD／動態／列印
+   ============================================================ */
+
+@media (max-width: 620px) {
+  :root { --sheet-x: 1rem; --sheet-bottom: 4rem }
+  .page-toc { --sheet-top: 3.5rem }
+  .page-toc header h1 { font-size: 1.5rem }
+  a.item .name { font-size: 1.1rem }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important }
+}
+
+@media print {
+  body { background: #fff }
+}
