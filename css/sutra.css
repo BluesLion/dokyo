@@ -66,8 +66,19 @@ header.masthead { padding: 4.5rem 0 3.5rem; text-align: center }
 }
 .bar button:hover { border-color: var(--sumi-2); color: var(--sumi) }
 .bar button[aria-pressed="true"] {
-  color: var(--paper); background: var(--sumi); border-color: var(--sumi);
+  color: var(--on-fill); background: var(--sumi); border-color: var(--sumi);
 }
+/* 夜間切換：日間顯示月、夜間顯示日 */
+#theme { display: flex; align-items: center; gap: .35rem }
+#theme svg {
+  width: .95rem; height: .95rem; fill: none;
+  stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+#theme .i-sun { display: none }
+#theme[aria-pressed="true"] .i-moon { display: none }
+#theme[aria-pressed="true"] .i-sun { display: inline }
+
 .bar .sp { flex: 1 }
 .bar .zoom { display: flex; gap: .25rem }
 .bar .zoom button { width: 1.9rem; padding: .3rem 0; text-align: center }
@@ -79,7 +90,7 @@ header.masthead { padding: 4.5rem 0 3.5rem; text-align: center }
 .spd button:last-child  { border-radius: 0 2px 2px 0 }
 
 #playall[aria-pressed="true"] {
-  color: var(--paper); background: var(--shu); border-color: var(--shu);
+  color: var(--on-fill); background: var(--shu); border-color: var(--shu);
 }
 
 /* ── 語音環境檢測 ── */
@@ -94,7 +105,7 @@ header.masthead { padding: 4.5rem 0 3.5rem; text-align: center }
 .envpanel {
   padding: 1rem 1.1rem; margin-bottom: .75rem;
   border: 1px solid var(--rule); border-left: 3px solid var(--shu);
-  background: var(--paper);
+  background: var(--surface);
   font-family: "Zen Kaku Gothic New", sans-serif; font-size: .8rem;
   color: var(--sumi-2); line-height: 1.9;
 }
@@ -117,7 +128,7 @@ header.masthead { padding: 4.5rem 0 3.5rem; text-align: center }
 .envpanel .pick label { color: var(--sumi) }
 .envpanel select {
   font: inherit; font-size: .8rem; padding: .3rem .5rem;
-  color: var(--sumi); background: var(--paper);
+  color: var(--sumi); background: var(--surface);
   border: 1px solid var(--rule); border-radius: 2px; max-width: 100%;
 }
 .envpanel select:focus-visible { outline-offset: 1px }
@@ -128,12 +139,12 @@ nav.gates {
   background: var(--rule); border: 1px solid var(--rule);
 }
 nav.gates a {
-  background: var(--paper); padding: .55rem .3rem; text-align: center;
+  background: var(--surface); padding: .55rem .3rem; text-align: center;
   text-decoration: none; color: var(--sumi); font-size: .98rem;
   letter-spacing: .04em; line-height: 1.6; transition: .15s;
 }
-nav.gates a:hover { background: var(--sumi); color: var(--paper) }
-nav.gates a:hover .n { color: var(--paper) }
+nav.gates a:hover { background: var(--sumi); color: var(--on-fill) }
+nav.gates a:hover .n { color: var(--on-fill) }
 nav.gates .n {
   display: block; font-size: 1.05rem; color: var(--shu); font-weight: 600;
   margin-bottom: .1rem; line-height: 1.3;
@@ -154,7 +165,7 @@ nav.gates.compact a {
 }
 nav.gates.compact a:hover,
 nav.gates.compact a:focus-visible {
-  background: var(--sumi); border-color: var(--sumi); color: var(--paper);
+  background: var(--sumi); border-color: var(--sumi); color: var(--on-fill);
   outline: none;
 }
 nav.gates.compact .n {
@@ -178,7 +189,7 @@ nav.gates.compact a.wide { grid-column: span 2 }
   flex: none; min-width: 1.8rem; height: 1.8rem;
   padding: 0 .45rem; white-space: nowrap;
   display: grid; place-items: center; align-self: center;
-  font-size: .82rem; color: var(--paper);
+  font-size: .82rem; color: var(--on-fill);
   background: var(--shu); border-radius: 999px;
 }
 
@@ -277,7 +288,7 @@ body.hide-romaji .c rt { visibility: hidden }
   border-radius: 2px;
 }
 .line.speaking .say {
-  background: var(--shu); border-color: var(--shu); color: var(--paper);
+  background: var(--shu); border-color: var(--shu); color: var(--on-fill);
 }
 .line.speaking .say .wv { animation: pulse 1.1s ease-in-out infinite }
 @keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .25 } }

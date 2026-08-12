@@ -11,17 +11,43 @@
 
 :root {
   /* 色票：取自日本佛典的紙墨與訓點朱 */
-  --paper:  #FBFAF7;   /* 紙 */
-  --sumi:   #1C1A17;   /* 墨 */
-  --sumi-2: #6B655C;   /* 次要文字 */
-  --shu:    #C8322B;   /* 朱 */
-  --rule:   #DCD7CC;   /* 界線 */
+  --paper:   #FBFAF7;   /* 紙 */
+  --sumi:    #1C1A17;   /* 墨 */
+  --sumi-2:  #6B655C;   /* 次要文字 */
+  --shu:     #C8322B;   /* 朱 */
+  --rule:    #DCD7CC;   /* 界線 */
+  --surface: #FBFAF7;   /* 浮起的面（面板、索引格） */
+  --on-fill: #FBFAF7;   /* 落在墨底或朱底上的字 */
 
   /* 版心：各頁以 body class 覆寫 */
   --sheet-max:    46rem;
   --sheet-top:    0rem;
   --sheet-x:      1.5rem;
   --sheet-bottom: 6rem;
+}
+
+/* ── 夜間：紺紙金泥 ──
+   跟隨系統設定；控制列的按鈕可在本次瀏覽中覆寫（不留存）。
+   兩個選擇器的內容必須一致，改色請同時改。 */
+:root[data-theme="dark"] {
+  --paper:   #141B2B;   /* 紺紙 */
+  --sumi:    #D6BC8B;   /* 金泥 */
+  --sumi-2:  #8E97A8;   /* 銀泥 */
+  --shu:     #C0492F;   /* 朱 */
+  --rule:    #26314A;
+  --surface: #1C2537;
+  --on-fill: #F1EBDD;   /* 白毫 */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:   #141B2B;
+    --sumi:    #D6BC8B;
+    --sumi-2:  #8E97A8;
+    --shu:     #C0492F;
+    --rule:    #26314A;
+    --surface: #1C2537;
+    --on-fill: #F1EBDD;
+  }
 }
 
 * { box-sizing: border-box }
@@ -106,10 +132,10 @@ a.item {
 }
 a.item:hover,
 a.item:focus-visible {
-  background: var(--sumi); border-color: var(--sumi); color: var(--paper);
+  background: var(--sumi); border-color: var(--sumi); color: var(--on-fill);
   outline: none;
 }
-a.item:hover .no, a.item:focus-visible .no { color: var(--paper) }
+a.item:hover .no, a.item:focus-visible .no { color: var(--on-fill) }
 
 a.item .no {
   flex: none;
@@ -145,6 +171,16 @@ a.item .arrow { flex: none; font-size: .9rem; opacity: .45 }
   * { transition: none !important; animation: none !important }
 }
 
+/* 列印一律用紙墨，不受夜間模式影響 */
 @media print {
+  :root, :root[data-theme="dark"] {
+    --paper:   #fff;
+    --sumi:    #1C1A17;
+    --sumi-2:  #6B655C;
+    --shu:     #C8322B;
+    --rule:    #DCD7CC;
+    --surface: #fff;
+    --on-fill: #fff;
+  }
   body { background: #fff }
 }

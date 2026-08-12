@@ -39,6 +39,31 @@
     if (window.ResizeObserver) new ResizeObserver(setTop).observe(topbar);
   }
 
+  /* ── 夜間模式 ──
+     預設跟隨系統；按下按鈕只在本次瀏覽中覆寫，重整即回系統設定。 */
+  const themeBtn = document.getElementById('theme');
+  if (themeBtn) {
+    const media = matchMedia('(prefers-color-scheme: dark)');
+    const isDark = () => {
+      const t = document.documentElement.dataset.theme;
+      return t ? t === 'dark' : media.matches;
+    };
+    const label = themeBtn.querySelector('.lb') || themeBtn;
+    const syncTheme = () => {
+      const dark = isDark();
+      themeBtn.setAttribute('aria-pressed', String(dark));
+      label.textContent = dark ? '日間' : '夜間';
+    };
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.dataset.theme = isDark() ? 'light' : 'dark';
+      syncTheme();
+    });
+    media.addEventListener('change', () => {
+      if (!document.documentElement.dataset.theme) syncTheme();
+    });
+    syncTheme();
+  }
+
   /* ── 字級加減 ── */
   const zIn = document.getElementById('z-in');
   const zOut = document.getElementById('z-out');
