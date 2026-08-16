@@ -16,7 +16,7 @@
   const $  = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
 
-  /* ── 顯示切換（羅馬拼音／句義）── */
+  /* ── 顯示切換（羅馬拼音）── */
   const toggle = (id, cls) => {
     const b = document.getElementById(id);
     if (!b) return;
@@ -27,7 +27,47 @@
     });
   };
   toggle('t-romaji', 'hide-romaji');
-  toggle('t-meaning', 'hide-meaning');
+
+  /* ── 段落索引收合 ──
+     索引下方的箭頭把手，另外往下捲自動收起、往上捲彈出。
+     收起後頂部固定區變矮，錨點偏移由下面的 ResizeObserver 自動跟上。 */
+  const fold = document.getElementById('toc-fold');
+  const gates = $('nav.gates');
+  if (fold && gates) {
+    /* 收合會改變 sticky 頂欄的高度，瀏覽器可能跟著微調 scrollY，
+       那個捲動不是使用者做的，要在鎖定時間內忽略，否則剛收起就被判成
+       「往上捲」而立刻彈回。 */
+    let lock = 0;
+    const setFold = open => {
+      if ((fold.getAttribute('aria-expanded') === 'true') === open) return;
+      fold.setAttribute('aria-expanded', String(open));
+      fold.setAttribute('aria-label', open ? '收合段落索引' : '展開段落索引');
+      gates.hidden = !open;
+      lock = performance.now() + 400;
+    };
+
+    fold.addEventListener('click', () =>
+      setFold(fold.getAttribute('aria-expanded') !== 'true'));
+
+    /* 捲動方向：往下收、往上開 */
+    let lastY = scrollY, ticking = false;
+    addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = Math.max(0, scrollY);
+        if (performance.now() < lock) { lastY = y; ticking = false; return; }
+        const dy = y - lastY;
+        if (Math.abs(dy) > 8) {
+          setFold(y < 60 ? true : dy < 0);
+          lastY = Math.max(0, scrollY);
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  } else if (fold) {
+    fold.hidden = true;            // 沒有索引的頁面就不顯示把手
+  }
 
   /* ── 頂部固定區高度隨內容變動，據此設定錨點偏移 ── */
   const topbar = $('.topbar');
@@ -221,6 +261,7 @@
 
   /* ── 播放 ── */
   let queue = [], qi = 0, chain = false;
+  let solo = null;                 // 單獨播放中的那個詞
 
   const clear = () => {
     clearTimeout(timer);
@@ -229,7 +270,7 @@
     $$('.saying').forEach(el => el.classList.remove('saying'));
     if (stopBtn) stopBtn.hidden = true;
     if (allBtn)  allBtn.setAttribute('aria-pressed', 'false');
-    current = null; chain = false; queue = []; qi = 0;
+    current = null; chain = false; queue = []; qi = 0; solo = null;
   };
 
   const stop = () => { synth.cancel(); clear(); };
@@ -315,14 +356,54 @@
     setTimeout(() => speakWords(line, ws, 0), 140);
   };
 
+  /* 播放指定的幾個單位。mark 用來判斷「再按一次＝停止」 */
+  const playSome = (line, words, mark, btn) => {
+    solo = mark; current = line;
+    keepAlive();
+    if (btn) btn.classList.add('speaking');
+    if (stopBtn) stopBtn.hidden = false;
+    setTimeout(() => speakWords(line, words, 0), 140);
+  };
+
+  /* 每顆喇叭鈕負責「自己與前一顆鈕之間」的所有朗讀單位：
+     陀羅尼頁是空格分出的一組假名，經文頁是標點之前的一段。
+     前面找不到單位的（如經題那顆）則唸整句。 */
   $$('.say').forEach(btn => {
     const line = btn.closest('.line');
     if (!line) return;
+
+    const words = [];
+    for (let n = btn.previousElementSibling; n; n = n.previousElementSibling) {
+      if (n.matches('.say')) break;
+      if (n.matches('.w[data-kana]')) words.unshift(n);
+      else words.unshift(...$$('.w[data-kana]', n));
+    }
+
+    if (!words.length) {
+      /* 前面已經有鈕卻收不到單位，表示這顆是多餘的（連續標點） */
+      let dup = false;
+      for (let n = btn.previousElementSibling; n; n = n.previousElementSibling)
+        if (n.matches('.say')) { dup = true; break; }
+      if (dup) { btn.hidden = true; return; }
+    }
+
     btn.addEventListener('click', () => {
-      const again = current === line && !chain;
+      const again = solo === btn;
       stop();
       if (again) return;
-      playLine(line);
+      if (words.length) playSome(line, words, btn, btn);
+      else playLine(line);
+    });
+  });
+
+  /* 點單位本身：只唸那一個字／那一組假名 */
+  $$('.w[data-kana], .tw[data-kana]').forEach(w => {
+    w.addEventListener('click', () => {
+      const again = solo === w;
+      stop();
+      if (again) return;
+      const line = w.closest('.line') || w.closest('header');
+      if (line) playSome(line, [w], w, null);
     });
   });
 
