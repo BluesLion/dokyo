@@ -6,9 +6,12 @@
      header.masthead > .frame > .title > .tw[data-kana]
                      > .line.titleline > button.say
      .topbar > .bar（控制列）+ .envpanel + nav.gates（可省略）
-     section.gate > h2 > .line > .phrase > .w[data-kana] > .kana > ruby
-                                        > button.say
+     section.gate > h2 > .line > .phrase > .unit > .w[data-kana] > .kana > ruby
+                                                 > button.say
                          > p.meaning
+     漢文經文頁（.gate.kanbun）的 .unit 內容不同：
+     .phrase > .unit > .seg（.w.c 漢字／.c.p 標點）+ button.say
+     .unit 是換行的最小單位，一組經文與它的喇叭鈕永遠同一行
    ============================================================ */
 
 :root {
@@ -200,9 +203,15 @@ nav.gates .n {
 
 /* ── 咒句 ── */
 .line { margin-bottom: 1.9rem }
-/* 每一組假名後面緊跟自己的喇叭鈕；組與組之間才拉開 */
-.phrase { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0 .3rem }
-.phrase .say + .w { margin-left: 1.5rem }
+/* 每一組假名後面緊跟自己的喇叭鈕；組與組之間才拉開。
+   一組包在 .unit 裡，組內不斷行 —— 換行只落在組與組之間，
+   所以每行左邊一定從假名／漢字開始，右邊一定收在標點或喇叭鈕，
+   不會出現喇叭鈕或標點被擠到行首。
+   組距一律用 .phrase 的 gap，不可用 margin：margin 換行後會留在
+   下一行的行首，把整行往右推，左邊就對不齊了。 */
+.phrase { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0 1.8rem }
+.unit { display: flex; max-width: 100%; gap: 0 .3rem }
+.phrase > .unit { align-items: flex-end }
 .phrase .say { width: 1.6rem; height: 1.6rem }
 .phrase .say svg { width: .85rem; height: .85rem }
 /* 播放中的那顆鈕亮起 */
@@ -237,10 +246,19 @@ nav.gates .n {
    多個 .c 合成一個 .w[data-kana]，即朗讀與高亮的單位。
    ============================================================ */
 
-.kanbun .phrase { align-items: flex-start; gap: 0 .3rem }
-.kanbun .say + .seg { margin-left: 1.1rem }
+/* 漢文的一組 ＝ 經文段 ＋ 標點 ＋ 該段的喇叭鈕 */
+.kanbun .phrase { align-items: flex-start; gap: 0 1.4rem }
+.kanbun .phrase > .unit { align-items: flex-start }
 
-/* 一句：斷行只落在句與句之間 */
+/* 偈頌：兩句一行、句間空開，四句排成兩行才讀得出對仗。
+   每句自己一顆喇叭鈕。用 grid 固定兩欄，不交給 flex-wrap，
+   否則四句會依寬度隨機擠成三句一行。窄畫面放不下才落成一句一行。 */
+.kanbun .phrase.verse {
+  display: grid; grid-template-columns: repeat(2, max-content);
+  justify-content: start; align-items: start; gap: 0 2.2rem;
+}
+
+/* 一句：斷行只落在組與組之間 */
 .seg { display: flex; align-items: flex-start; margin-bottom: .9rem }
 
 /* 一個漢字 = 一個字塊，也是逐字朗讀的單位 */
@@ -355,9 +373,12 @@ body.hide-romaji .kana rt { visibility: hidden }
   }
   nav.gates a { padding: .26rem .15rem; font-size: .66rem }
   nav.gates .n { font-size: .8rem }
-  .phrase { gap: 0 1.3rem }
+  .phrase { gap: 0 2.8rem }
+  .unit { gap: 0 1.3rem }
   .kana ruby { margin-right: .4em }
-  .kanbun .phrase { gap: 0 .9rem }
+  .kanbun .phrase { gap: 0 2rem }
+  .kanbun .unit { gap: 0 .9rem }
+  .kanbun .phrase.verse { grid-template-columns: max-content }
   .seg { margin-bottom: .7rem }
 }
 
