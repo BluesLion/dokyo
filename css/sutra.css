@@ -246,9 +246,11 @@ nav.gates .n {
    多個 .c 合成一個 .w[data-kana]，即朗讀與高亮的單位。
    ============================================================ */
 
-/* 漢文的一組 ＝ 經文段 ＋ 標點 ＋ 該段的喇叭鈕 */
+/* 漢文的一組 ＝ 經文段 ＋ 標點 ＋ 該段的喇叭鈕。
+   組內對齊到底邊：標點沒有假名那一層，靠上排會浮到假名的高度，
+   靠底邊才會跟漢字落在同一列。 */
 .kanbun .phrase { align-items: flex-start; gap: 0 1.4rem }
-.kanbun .phrase > .unit { align-items: flex-start }
+.kanbun .phrase > .unit { align-items: flex-end }
 
 /* 偈頌：兩句一行、句間空開，四句排成兩行才讀得出對仗。
    每句自己一顆喇叭鈕。用 grid 固定兩欄，不交給 flex-wrap，
@@ -282,8 +284,10 @@ nav.gates .n {
   font-size: var(--kana-size); line-height: 1.35; letter-spacing: 0;
 }
 
-/* 標點自成一格，不佔字塊高度 */
-.c.p { align-self: flex-end }
+/* 標點自成一格，不佔字塊高度。
+   漢字是 .w.c，帶 .w 的 margin-bottom；標點不是 .w，得補上同一個值，
+   底邊才會對齊，標點才跟漢字落在同一列而不是掉到下面 .45rem。 */
+.c.p { align-self: flex-end; margin-bottom: .45rem }
 .c.p b { font-size: calc(var(--kana-size) * .9) }
 
 /* 播放中：該字亮起 */
