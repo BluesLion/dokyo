@@ -310,6 +310,18 @@ body.hide-romaji .c rt { visibility: hidden }
 .line.speaking .say .wv { animation: pulse 1.1s ease-in-out infinite }
 @keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .25 } }
 
+/* 經文頁一面就是一段：整段染色、整排喇叭同時亮都太吵，
+   位置交給逐字的 .saying 指示就好 */
+.kanbun .line.speaking { background: none; box-shadow: none }
+.kanbun .line.speaking .say {
+  background: transparent; border-color: var(--rule); color: var(--sumi-2);
+}
+.kanbun .line.speaking .say .wv { animation: none }
+.kanbun .say.speaking {
+  background: var(--shu); border-color: var(--shu); color: var(--on-fill);
+}
+.kanbun .say.speaking .wv { animation: pulse 1.1s ease-in-out infinite }
+
 .w.saying .kana {
   color: var(--shu);
   background: color-mix(in srgb, var(--shu) 9%, transparent);
