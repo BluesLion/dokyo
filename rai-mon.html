@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>禮文　讀誦對照</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Serif+TC:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=202608240057">
+<link rel="stylesheet" href="css/sutra.css?v=202608240057">
+</head>
+<body class="page-sutra">
+<div class="sheet">
+
+<header class="masthead">
+  <div class="frame">
+    <div class="title"><span class="tw" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>禮</b></span><span class="tw" data-kana="モン"><ruby>モン<rt>mon</rt></ruby><b>文</b></span></div>
+  </div>
+  <div class="line titleline">
+    <button class="say" data-kana="ライモン" aria-label="播放經題的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+  </div>
+</header>
+
+<div class="topbar">
+<div class="bar">
+  <a class="home" href="index.html" aria-label="回到首頁">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>目次
+  </a>
+  <span class="div"></span>
+  <button id="t-romaji" aria-pressed="true">羅馬拼音</button>
+  <div class="spd" role="group" aria-label="朗讀速度">
+    <button data-spd="0" aria-pressed="true">常速</button>
+    <button data-spd="1" aria-pressed="false">慢</button>
+    <button data-spd="2" aria-pressed="false">極慢</button>
+  </div>
+  <button id="playall">全篇朗讀</button>
+  <button id="envbtn" aria-expanded="false" aria-controls="envpanel">
+    <span class="dot" id="envdot"></span><span id="envlabel">語音檢測中</span>
+  </button>
+  <button id="stop" hidden>停止朗讀</button>
+  <button id="theme" aria-pressed="false" aria-label="切換日間／夜間">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path class="i-moon" d="M20.5 14.6A8.2 8.2 0 0 1 9.4 3.5a7.5 7.5 0 1 0 11.1 11.1z"/>
+      <g class="i-sun"><circle cx="12" cy="12" r="3.8"/><path d="M12 2.2v2M12 19.8v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.2 12h2M19.8 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>
+    </svg><span class="lb">夜間</span>
+  </button>
+  <span class="sp"></span>
+  <div class="zoom">
+    <button id="z-out" aria-label="縮小字級">－</button>
+    <button id="z-in" aria-label="放大字級">＋</button>
+  </div>
+</div>
+
+<div class="envpanel" id="envpanel" hidden>
+  <p class="st" id="envmsg"></p>
+  <p class="pick" id="envpick" hidden>
+    <label for="voicesel">朗讀語音</label>
+    <select id="voicesel"></select>
+  </p>
+  <div id="envhelp">
+    <p class="hd" id="envhd">安裝日語語音的方式</p>
+    <ul>
+      <li data-os="win"><b>Windows</b>　設定 → 時間與語言 → 語言與地區 →
+        新增「日本語」，於語言選項中勾選「語音」，裝好後重開瀏覽器</li>
+      <li data-os="mac"><b>macOS</b>　系統設定 → 輔助使用 → 朗讀內容 →
+        系統語音 → 管理語音 → 下載日文（Kyoko／Otoya）</li>
+      <li data-os="ios"><b>iPhone／iPad</b>　設定 → 輔助使用 → 朗讀內容 →
+        語音 → 加入日文</li>
+      <li data-os="android"><b>Android</b>　設定 → 系統 → 語言與輸入 →
+        文字轉語音輸出 → 安裝日文語音資料</li>
+    </ul>
+    <p class="ft" id="envft"></p>
+  </div>
+</div>
+
+<nav class="gates"><a href="#gate-一"><span class="n">一</span>歸命三寶</a>
+<a href="#gate-二"><span class="n">二</span>歎佛三身</a>
+<a href="#gate-三"><span class="n">三</span>懺悔業障</a>
+<a href="#gate-四"><span class="n">四</span>隨喜功德</a>
+<a href="#gate-五"><span class="n">五</span>請轉法輪</a>
+<a href="#gate-六"><span class="n">六</span>請佛住世</a>
+<a href="#gate-七"><span class="n">七</span>普皆迴向</a></nav>
+</nav>
+<button id="toc-fold" class="fold" aria-expanded="true" aria-label="收合段落索引">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8.5l6 6"/></svg>
+</button>
+</div>
+
+
+<section class="gate kanbun" id="gate-一">
+<h2><span class="num">一</span><span class="gname">歸命三寶</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="キ"><ruby>キ<rt>ki</rt></ruby><b>歸</b></span><span class="w c" data-kana="ミョウ"><ruby>ミョウ<rt>myou</rt></ruby><b>命</b></span><span class="w c" data-kana="ジッ"><ruby>ジッ<rt>jip</rt></ruby><b>十</b></span><span class="w c" data-kana="ポウ"><ruby>ポウ<rt>pou</rt></ruby><b>方</b></span><span class="w c" data-kana="イッ"><ruby>イッ<rt>is</rt></ruby><b>一</b></span><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>切</b></span><span class="w c" data-kana="ブ"><ruby>ブ<rt>bu</rt></ruby><b>佛</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>最</b></span><span class="w c" data-kana="ショウ"><ruby>ショウ<rt>shou</rt></ruby><b>勝</b></span><span class="w c" data-kana="ミョウ"><ruby>ミョウ<rt>myou</rt></ruby><b>妙</b></span><span class="w c" data-kana="ホウ"><ruby>ホウ<rt>hou</rt></ruby><b>法</b></span><span class="w c" data-kana="ボ"><ruby>ボ<rt>bo</rt></ruby><b>菩</b></span><span class="w c" data-kana="ダイ"><ruby>ダイ<rt>dai</rt></ruby><b>提</b></span><span class="w c" data-kana="シュウ"><ruby>シュウ<rt>shuu</rt></ruby><b>眾</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="イ"><ruby>イ<rt>i</rt></ruby><b>以</b></span><span class="w c" data-kana="シン"><ruby>シン<rt>shin</rt></ruby><b>身</b></span><span class="w c" data-kana="ク"><ruby>ク<rt>ku</rt></ruby><b>口</b></span><span class="w c" data-kana="イ"><ruby>イ<rt>i</rt></ruby><b>意</b></span><span class="w c" data-kana="ショウ"><ruby>ショウ<rt>shou</rt></ruby><b>清</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>淨</b></span><span class="w c" data-kana="ゴウ"><ruby>ゴウ<rt>gou</rt></ruby><b>業</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="オン"><ruby>オン<rt>on</rt></ruby><b>慇</b></span><span class="w c" data-kana="ゴン"><ruby>ゴン<rt>gon</rt></ruby><b>懃</b></span><span class="w c" data-kana="ガッ"><ruby>ガッ<rt>gas</rt></ruby><b>合</b></span><span class="w c" data-kana="ショウ"><ruby>ショウ<rt>shou</rt></ruby><b>掌</b></span><span class="w c" data-kana="ク"><ruby>ク<rt>ku</rt></ruby><b>恭</b></span><span class="w c" data-kana="ギョウ"><ruby>ギョウ<rt>gyou</rt></ruby><b>敬</b></span><span class="w c" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>禮</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+<section class="gate kanbun" id="gate-二">
+<h2><span class="num">二</span><span class="gname">歎佛三身</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ニョ"><ruby>ニョ<rt>nyo</rt></ruby><b>如</b></span><span class="w c" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>來</b></span><span class="w c" data-kana="メウ" data-say="ミョウ"><ruby>メウ<rt>myou</rt></ruby><b>妙</b></span><span class="w c" data-kana="シキ"><ruby>シキ<rt>shiki</rt></ruby><b>色</b></span><span class="w c" data-kana="シン"><ruby>シン<rt>shin</rt></ruby><b>身</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="セ"><ruby>セ<rt>se</rt></ruby><b>世</b></span><span class="w c" data-kana="ケン"><ruby>ケン<rt>ken</rt></ruby><b>間</b></span><span class="w c" data-kana="ム"><ruby>ム<rt>mu</rt></ruby><b>無</b></span><span class="w c" data-kana="ヨ"><ruby>ヨ<rt>yo</rt></ruby><b>與</b></span><span class="w c" data-kana="トウ"><ruby>トウ<rt>tou</rt></ruby><b>等</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ム"><ruby>ム<rt>mu</rt></ruby><b>無</b></span><span class="w c" data-kana="ビ"><ruby>ビ<rt>bi</rt></ruby><b>比</b></span><span class="w c" data-kana="フ"><ruby>フ<rt>fu</rt></ruby><b>不</b></span><span class="w c" data-kana="シ"><ruby>シ<rt>shi</rt></ruby><b>思</b></span><span class="w c" data-kana="ギ"><ruby>ギ<rt>gi</rt></ruby><b>議</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ゼ"><ruby>ゼ<rt>ze</rt></ruby><b>是</b></span><span class="w c" data-kana="コ"><ruby>コ<rt>ko</rt></ruby><b>故</b></span><span class="w c" data-kana="コン"><ruby>コン<rt>kon</rt></ruby><b>今</b></span><span class="w c" data-kana="キョウ"><ruby>キョウ<rt>kyou</rt></ruby><b>敬</b></span><span class="w c" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>禮</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ニョ"><ruby>ニョ<rt>nyo</rt></ruby><b>如</b></span><span class="w c" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>來</b></span><span class="w c" data-kana="シキ"><ruby>シキ<rt>shiki</rt></ruby><b>色</b></span><span class="w c" data-kana="ム"><ruby>ム<rt>mu</rt></ruby><b>無</b></span><span class="w c" data-kana="ジン"><ruby>ジン<rt>jin</rt></ruby><b>盡</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="チ"><ruby>チ<rt>chi</rt></ruby><b>智</b></span><span class="w c" data-kana="エ"><ruby>エ<rt>e</rt></ruby><b>慧</b></span><span class="w c" data-kana="ヤク"><ruby>ヤク<rt>yaku</rt></ruby><b>亦</b></span><span class="w c" data-kana="ブ"><ruby>ブ<rt>bu</rt></ruby><b>復</b></span><span class="w c" data-kana="ネン"><ruby>ネン<rt>nen</rt></ruby><b>然</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="イッ"><ruby>イッ<rt>is</rt></ruby><b>一</b></span><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>切</b></span><span class="w c" data-kana="ホウ"><ruby>ホウ<rt>hou</rt></ruby><b>法</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>常</b></span><span class="w c" data-kana="ジウ" data-say="ジュウ"><ruby>ジウ<rt>juu</rt></ruby><b>住</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ゼ"><ruby>ゼ<rt>ze</rt></ruby><b>是</b></span><span class="w c" data-kana="コ"><ruby>コ<rt>ko</rt></ruby><b>故</b></span><span class="w c" data-kana="ガ"><ruby>ガ<rt>ga</rt></ruby><b>我</b></span><span class="w c" data-kana="キ"><ruby>キ<rt>ki</rt></ruby><b>歸</b></span><span class="w c" data-kana="エ"><ruby>エ<rt>e</rt></ruby><b>依</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+<section class="gate kanbun" id="gate-三">
+<h2><span class="num">三</span><span class="gname">懺悔業障</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ム"><ruby>ム<rt>mu</rt></ruby><b>無</b></span><span class="w c" data-kana="シ"><ruby>シ<rt>shi</rt></ruby><b>始</b></span><span class="w c" data-kana="リン"><ruby>リン<rt>rin</rt></ruby><b>輪</b></span><span class="w c" data-kana="ネ"><ruby>ネ<rt>ne</rt></ruby><b>迴</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>諸</b></span><span class="w c" data-kana="ウ"><ruby>ウ<rt>u</rt></ruby><b>有</b></span><span class="w c" data-kana="チウ" data-say="チュウ"><ruby>チウ<rt>chuu</rt></ruby><b>中</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="シン"><ruby>シン<rt>shin</rt></ruby><b>身</b></span><span class="w c" data-kana="ク"><ruby>ク<rt>ku</rt></ruby><b>口</b></span><span class="w c" data-kana="イ"><ruby>イ<rt>i</rt></ruby><b>意</b></span><span class="w c" data-kana="ゴウ"><ruby>ゴウ<rt>gou</rt></ruby><b>業</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>所</b></span><span class="w c" data-kana="ショウ"><ruby>ショウ<rt>shou</rt></ruby><b>生</b></span><span class="w c" data-kana="ザイ"><ruby>ザイ<rt>zai</rt></ruby><b>罪</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ニョ"><ruby>ニョ<rt>nyo</rt></ruby><b>如</b></span><span class="w c" data-kana="ブツ"><ruby>ブツ<rt>butsu</rt></ruby><b>佛</b></span><span class="w c" data-kana="ボ"><ruby>ボ<rt>bo</rt></ruby><b>菩</b></span><span class="w c" data-kana="サ"><ruby>サ<rt>sa</rt></ruby><b>薩</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>所</b></span><span class="w c" data-kana="サン"><ruby>サン<rt>san</rt></ruby><b>懺</b></span><span class="w c" data-kana="ゲ"><ruby>ゲ<rt>ge</rt></ruby><b>悔</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ガ"><ruby>ガ<rt>ga</rt></ruby><b>我</b></span><span class="w c" data-kana="コン"><ruby>コン<rt>kon</rt></ruby><b>今</b></span><span class="w c" data-kana="ジン"><ruby>ジン<rt>jin</rt></ruby><b>陳</b></span><span class="w c" data-kana="サン"><ruby>サン<rt>san</rt></ruby><b>懺</b></span><span class="w c" data-kana="ヤク"><ruby>ヤク<rt>yaku</rt></ruby><b>亦</b></span><span class="w c" data-kana="ニョ"><ruby>ニョ<rt>nyo</rt></ruby><b>如</b></span><span class="w c" data-kana="ゼ"><ruby>ゼ<rt>ze</rt></ruby><b>是</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+<section class="gate kanbun" id="gate-四">
+<h2><span class="num">四</span><span class="gname">隨喜功德</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ジッ"><ruby>ジッ<rt>jip</rt></ruby><b>十</b></span><span class="w c" data-kana="ポウ"><ruby>ポウ<rt>pou</rt></ruby><b>方</b></span><span class="w c" data-kana="イッ"><ruby>イッ<rt>is</rt></ruby><b>一</b></span><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>切</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>諸</b></span><span class="w c" data-kana="シウ" data-say="シュウ"><ruby>シウ<rt>shuu</rt></ruby><b>眾</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>生</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ニ"><ruby>ニ<rt>ni</rt></ruby><b>二</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>乘</b></span><span class="w c" data-kana="ウ"><ruby>ウ<rt>u</rt></ruby><b>有</b></span><span class="w c" data-kana="ガク"><ruby>ガク<rt>gaku</rt></ruby><b>學</b></span><span class="w c" data-kana="ギウ" data-say="ギュウ"><ruby>ギウ<rt>gyuu</rt></ruby><b>及</b></span><span class="w c" data-kana="ム"><ruby>ム<rt>mu</rt></ruby><b>無</b></span><span class="w c" data-kana="ガク"><ruby>ガク<rt>gaku</rt></ruby><b>學</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="イッ"><ruby>イッ<rt>is</rt></ruby><b>一</b></span><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>切</b></span><span class="w c" data-kana="ニョ"><ruby>ニョ<rt>nyo</rt></ruby><b>如</b></span><span class="w c" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>來</b></span><span class="w c" data-kana="ヨ"><ruby>ヨ<rt>yo</rt></ruby><b>與</b></span><span class="w c" data-kana="ボ"><ruby>ボ<rt>bo</rt></ruby><b>菩</b></span><span class="w c" data-kana="サ"><ruby>サ<rt>sa</rt></ruby><b>薩</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>所</b></span><span class="w c" data-kana="ウ"><ruby>ウ<rt>u</rt></ruby><b>有</b></span><span class="w c" data-kana="ク"><ruby>ク<rt>ku</rt></ruby><b>功</b></span><span class="w c" data-kana="ドク"><ruby>ドク<rt>doku</rt></ruby><b>德</b></span><span class="w c" data-kana="カイ"><ruby>カイ<rt>kai</rt></ruby><b>皆</b></span><span class="w c" data-kana="ズイ"><ruby>ズイ<rt>zui</rt></ruby><b>隨</b></span><span class="w c" data-kana="キ"><ruby>キ<rt>ki</rt></ruby><b>喜</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+<section class="gate kanbun" id="gate-五">
+<h2><span class="num">五</span><span class="gname">請轉法輪</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ジッ"><ruby>ジッ<rt>jip</rt></ruby><b>十</b></span><span class="w c" data-kana="ポウ"><ruby>ポウ<rt>pou</rt></ruby><b>方</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>所</b></span><span class="w c" data-kana="ウ"><ruby>ウ<rt>u</rt></ruby><b>有</b></span><span class="w c" data-kana="セ"><ruby>セ<rt>se</rt></ruby><b>世</b></span><span class="w c" data-kana="ケン"><ruby>ケン<rt>ken</rt></ruby><b>間</b></span><span class="w c" data-kana="トウ"><ruby>トウ<rt>tou</rt></ruby><b>燈</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>最</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>初</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>成</b></span><span class="w c" data-kana="ジュ"><ruby>ジュ<rt>ju</rt></ruby><b>就</b></span><span class="w c" data-kana="ボ"><ruby>ボ<rt>bo</rt></ruby><b>菩</b></span><span class="w c" data-kana="ダイ"><ruby>ダイ<rt>dai</rt></ruby><b>提</b></span><span class="w c" data-kana="シャ"><ruby>シャ<rt>sha</rt></ruby><b>者</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ガ"><ruby>ガ<rt>ga</rt></ruby><b>我</b></span><span class="w c" data-kana="コン"><ruby>コン<rt>kon</rt></ruby><b>今</b></span><span class="w c" data-kana="イッ"><ruby>イッ<rt>is</rt></ruby><b>一</b></span><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>切</b></span><span class="w c" data-kana="カイ"><ruby>カイ<rt>kai</rt></ruby><b>皆</b></span><span class="w c" data-kana="クワン" data-say="カン"><ruby>クワン<rt>kan</rt></ruby><b>勸</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>請</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="テン"><ruby>テン<rt>ten</rt></ruby><b>轉</b></span><span class="w c" data-kana="ノ"><ruby>ノ<rt>no</rt></ruby><b>於</b></span><span class="w c" data-kana="ム"><ruby>ム<rt>mu</rt></ruby><b>無</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>上</b></span><span class="w c" data-kana="ミョウ"><ruby>ミョウ<rt>myou</rt></ruby><b>妙</b></span><span class="w c" data-kana="ホウ"><ruby>ホウ<rt>hou</rt></ruby><b>法</b></span><span class="w c" data-kana="リン"><ruby>リン<rt>rin</rt></ruby><b>輪</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+<section class="gate kanbun" id="gate-六">
+<h2><span class="num">六</span><span class="gname">請佛住世</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>諸</b></span><span class="w c" data-kana="ブツ"><ruby>ブツ<rt>butsu</rt></ruby><b>佛</b></span><span class="w c" data-kana="ニャク"><ruby>ニャク<rt>nyaku</rt></ruby><b>若</b></span><span class="w c" data-kana="ヨク"><ruby>ヨク<rt>yoku</rt></ruby><b>欲</b></span><span class="w c" data-kana="ジ"><ruby>ジ<rt>ji</rt></ruby><b>示</b></span><span class="w c" data-kana="ネ"><ruby>ネ<rt>ne</rt></ruby><b>涅</b></span><span class="w c" data-kana="ハン"><ruby>ハン<rt>han</rt></ruby><b>槃</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ガ"><ruby>ガ<rt>ga</rt></ruby><b>我</b></span><span class="w c" data-kana="シ"><ruby>シ<rt>shi</rt></ruby><b>悉</b></span><span class="w c" data-kana="シ"><ruby>シ<rt>shi</rt></ruby><b>至</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>誠</b></span><span class="w c" data-kana="ニ"><ruby>ニ<rt>ni</rt></ruby><b>而</b></span><span class="w c" data-kana="クワン" data-say="カン"><ruby>クワン<rt>kan</rt></ruby><b>勸</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>請</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ユイ"><ruby>ユイ<rt>yui</rt></ruby><b>唯</b></span><span class="w c" data-kana="グワン" data-say="ガン"><ruby>グワン<rt>gan</rt></ruby><b>願</b></span><span class="w c" data-kana="ク"><ruby>ク<rt>ku</rt></ruby><b>久</b></span><span class="w c" data-kana="ジュウ"><ruby>ジュウ<rt>juu</rt></ruby><b>住</b></span><span class="w c" data-kana="セツ"><ruby>セツ<rt>setsu</rt></ruby><b>剎</b></span><span class="w c" data-kana="ジン"><ruby>ジン<rt>jin</rt></ruby><b>塵</b></span><span class="w c" data-kana="コウ"><ruby>コウ<rt>kou</rt></ruby><b>劫</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="リ"><ruby>リ<rt>ri</rt></ruby><b>利</b></span><span class="w c" data-kana="ラク"><ruby>ラク<rt>raku</rt></ruby><b>樂</b></span><span class="w c" data-kana="イッ"><ruby>イッ<rt>is</rt></ruby><b>一</b></span><span class="w c" data-kana="サイ"><ruby>サイ<rt>sai</rt></ruby><b>切</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>諸</b></span><span class="w c" data-kana="シュウ"><ruby>シュウ<rt>shuu</rt></ruby><b>眾</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>生</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+<section class="gate kanbun" id="gate-七">
+<h2><span class="num">七</span><span class="gname">普皆迴向</span></h2>
+<div class="verse">
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>所</b></span><span class="w c" data-kana="ウ"><ruby>ウ<rt>u</rt></ruby><b>有</b></span><span class="w c" data-kana="ライ"><ruby>ライ<rt>rai</rt></ruby><b>禮</b></span><span class="w c" data-kana="サン"><ruby>サン<rt>san</rt></ruby><b>讚</b></span><span class="w c" data-kana="ク"><ruby>ク<rt>ku</rt></ruby><b>供</b></span><span class="w c" data-kana="ヨウ"><ruby>ヨウ<rt>you</rt></ruby><b>養</b></span><span class="w c" data-kana="フク"><ruby>フク<rt>fuku</rt></ruby><b>福</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ショウ"><ruby>ショウ<rt>shou</rt></ruby><b>請</b></span><span class="w c" data-kana="ブツ"><ruby>ブツ<rt>butsu</rt></ruby><b>佛</b></span><span class="w c" data-kana="ジュウ"><ruby>ジュウ<rt>juu</rt></ruby><b>住</b></span><span class="w c" data-kana="セ"><ruby>セ<rt>se</rt></ruby><b>世</b></span><span class="w c" data-kana="テン"><ruby>テン<rt>ten</rt></ruby><b>轉</b></span><span class="w c" data-kana="ボウ"><ruby>ボウ<rt>bou</rt></ruby><b>法</b></span><span class="w c" data-kana="リン"><ruby>リン<rt>rin</rt></ruby><b>輪</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="ズイ"><ruby>ズイ<rt>zui</rt></ruby><b>隨</b></span><span class="w c" data-kana="キ"><ruby>キ<rt>ki</rt></ruby><b>喜</b></span><span class="w c" data-kana="サン"><ruby>サン<rt>san</rt></ruby><b>懺</b></span><span class="w c" data-kana="ゲ"><ruby>ゲ<rt>ge</rt></ruby><b>悔</b></span><span class="w c" data-kana="ショ"><ruby>ショ<rt>sho</rt></ruby><b>諸</b></span><span class="w c" data-kana="ゼン"><ruby>ゼン<rt>zen</rt></ruby><b>善</b></span><span class="w c" data-kana="ゴン"><ruby>ゴン<rt>gon</rt></ruby><b>根</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+<div class="line"><div class="phrase"><span class="unit"><span class="seg"><span class="w c" data-kana="エ"><ruby>エ<rt>e</rt></ruby><b>迴</b></span><span class="w c" data-kana="コウ"><ruby>コウ<rt>kou</rt></ruby><b>向</b></span><span class="w c" data-kana="シュウ"><ruby>シュウ<rt>shuu</rt></ruby><b>眾</b></span><span class="w c" data-kana="ジョウ"><ruby>ジョウ<rt>jou</rt></ruby><b>生</b></span><span class="w c" data-kana="ギウ" data-say="ギュウ"><ruby>ギウ<rt>gyuu</rt></ruby><b>及</b></span><span class="w c" data-kana="ブツ"><ruby>ブツ<rt>butsu</rt></ruby><b>佛</b></span><span class="w c" data-kana="ドウ"><ruby>ドウ<rt>dou</rt></ruby><b>道</b></span></span><button class="say" aria-label="播放這一句的日文發音"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button></span></div></div>
+</div>
+</section>
+
+</div>
+<script src="js/sutra.js?v=202608240057"></script>
+</body>
+</html>

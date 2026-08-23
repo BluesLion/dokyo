@@ -2,6 +2,8 @@
    dokyo — sutra.js
    讀誦對照頁的互動：顯示切換、字級、語音檢測、日文朗讀
 
+   朗讀的顆粒由速度決定：常速整組一次唸完，慢／極慢才逐字並逐字高亮。
+
    放在 </body> 前以 <script src="js/sutra.js"></script> 載入。
    所有控制項皆為選配 —— 頁面沒放的元件會自動略過，不會報錯。
 
@@ -291,34 +293,24 @@
     timer = setTimeout(() => playLine(queue[qi]), SPEED[level].gap * 1.6);
   };
 
-  /* 逐詞依序念出，每念完一詞停頓 gap 毫秒 */
-  const speakWords = (line, words, i) => {
-    if (current !== line) return;
-    if (i >= words.length) {
-      words.forEach(w => w.classList.remove('saying'));
-      line.classList.remove('speaking');
-      lineDone();
-      return;
-    }
-    const { rate, gap } = SPEED[level];
-    words.forEach(w => w.classList.remove('saying'));
-    words[i].classList.add('saying');
+  /* 送一段話給引擎，等它真的停止發聲才回呼。
+     data-say 是給語音引擎的覆寫值（如合拗音 クヮン → カン），
+     沒有就用顯示的假名 */
+  const textOf = w => w.dataset.say || w.dataset.kana;
 
-    /* data-say 是給語音引擎的覆寫值（如合拗音 クヮン → カン），
-       沒有就用顯示的假名 */
-    const u = new SpeechSynthesisUtterance(
-      words[i].dataset.say || words[i].dataset.kana);
+  const utter = (line, text, rate, done) => {
+    const u = new SpeechSynthesisUtterance(text);
     u.lang = 'ja-JP';
     if (jaVoice) u.voice = jaVoice;
     u.rate = rate;
     u.pitch = 0.95;
 
-    let done = false, started = false;
+    let fired = false, started = false;
     const finish = () => {
-      if (done || current !== line) return;
-      done = true;
+      if (fired || current !== line) return;
+      fired = true;
       clearInterval(poll); clearTimeout(bail);
-      timer = setTimeout(() => speakWords(line, words, i + 1), gap);
+      done();
     };
 
     synth.speak(u);
@@ -336,6 +328,36 @@
 
     u.onend = () => { if (started) finish(); };
     u.onerror = finish;
+  };
+
+  const wordsDone = (line, words) => {
+    words.forEach(w => w.classList.remove('saying'));
+    line.classList.remove('speaking');
+    lineDone();
+  };
+
+  /* 常速：整組一次送進引擎，唸起來才連貫，不會一個字一個字蹦出來。
+     慢／極慢：逐字送、字間拉開停頓，並逐字高亮——引擎的 rate 有下限，
+     真正的放慢只能靠這個，學單字讀音時也用得上。 */
+  const speakWords = (line, words, i) => {
+    if (current !== line) return;
+    const { rate, gap } = SPEED[level];
+
+    if (level === 0) {
+      if (i > 0 || !words.length) { wordsDone(line, words); return; }
+      words.forEach(w => w.classList.add('saying'));
+      utter(line, words.map(textOf).join(''), rate, () => {
+        timer = setTimeout(() => speakWords(line, words, 1), gap);
+      });
+      return;
+    }
+
+    if (i >= words.length) { wordsDone(line, words); return; }
+    words.forEach(w => w.classList.remove('saying'));
+    words[i].classList.add('saying');
+    utter(line, textOf(words[i]), rate, () => {
+      timer = setTimeout(() => speakWords(line, words, i + 1), gap);
+    });
   };
 
   const keepAlive = () => {

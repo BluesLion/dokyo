@@ -254,11 +254,18 @@ nav.gates .n {
 
 /* 偈頌：兩句一行、句間空開，四句排成兩行才讀得出對仗。
    每句自己一顆喇叭鈕。用 grid 固定兩欄，不交給 flex-wrap，
-   否則四句會依寬度隨機擠成三句一行。窄畫面放不下才落成一句一行。 */
-.kanbun .phrase.verse {
+   否則四句會依寬度隨機擠成三句一行。窄畫面放不下才落成一句一行。
+
+   .verse 可以掛在兩種地方，兩種都要吃到這條規則：
+     掛在 .phrase 上 → 格子是 .unit（整偈是一個朗讀單位，如迴向偈）
+     掛在包住數個 .line 的容器上 → 格子是 .line（一句一個朗讀單位，
+     全篇朗讀就會一次唸一句，如禮文） */
+.kanbun .verse {
   display: grid; grid-template-columns: repeat(2, max-content);
   justify-content: start; align-items: start; gap: 0 2.2rem;
 }
+/* 行距交給 .seg 的 margin-bottom，.line 自己的不要再疊上去 */
+.kanbun .verse > .line { margin-bottom: .5rem }
 
 /* 一句：斷行只落在組與組之間 */
 .seg { display: flex; align-items: flex-start; margin-bottom: .9rem }
@@ -382,7 +389,7 @@ body.hide-romaji .kana rt { visibility: hidden }
   .kana ruby { margin-right: .4em }
   .kanbun .phrase { gap: 0 2rem }
   .kanbun .unit { gap: 0 .9rem }
-  .kanbun .phrase.verse { grid-template-columns: max-content }
+  .kanbun .verse { grid-template-columns: max-content }
   .seg { margin-bottom: .7rem }
 }
 
